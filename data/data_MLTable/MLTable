@@ -1,0 +1,15 @@
+type: mltable
+paths:
+  - file: ../Placement_Data_Full_Class.csv
+
+transformations:
+  - read_delimited:
+      delimiter: ','
+      header: all_files_same_headers
+      encoding: ascii
+      include_path_column: true
+      empty_as_string: false
+
+  - drop_columns:
+      columns:
+        - salary
