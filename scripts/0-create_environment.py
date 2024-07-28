@@ -95,3 +95,6 @@ def main():
     create_uri_dataset(ml_client)
     create_mltable_dataset(ml_client)
 
+if __name__ == "__main__":
+    main()
+
