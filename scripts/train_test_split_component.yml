@@ -1,0 +1,26 @@
+name: train_test_split
+version: 1
+type: command
+inputs:
+  input_data:
+    type: uri_file
+    description: Path to the input CSV file
+  test_size:
+    type: number
+    default: 0.2
+    description: Fraction of data to be used as test set
+outputs:
+  output_train:
+    type: uri_file
+    description: Path to save the training dataset
+  output_test:
+    type: uri_file
+    description: Path to save the testing dataset
+code: ./src
+command: >
+  python train_test_split_component.py
+  --input_data ${{inputs.input_data}}
+  --test_size ${{inputs.test_size}}
+  --output_train ${{outputs.output_train}}
+  --output_test ${{outputs.output_test}}
+environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest

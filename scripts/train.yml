@@ -1,0 +1,92 @@
+$schema: http://azuremlschemas.azurewebsites.net/latest/component.schema.json
+name: train_gradient_boosting
+version: 1.0.0
+type: command
+display_name: Train Gradient Boosting Model
+description: Trains a Gradient Boosting model using provided training data and evaluates performance.
+
+inputs:
+  input_training_data:
+    type: uri_file
+    description: Path to the input CSV file containing training data.
+  input_test_data:
+    type: uri_file
+    description: Path to the input CSV file containing test data.
+  target_column:
+    type: string
+    description: The name of the target column in the dataset.
+  n_estimators:
+    type: integer
+    default: 100
+    description: The number of boosting stages to be run.
+  learning_rate:
+    type: number
+    default: 0.1
+    description: The learning rate of the boosting algorithm.
+  max_depth:
+    type: integer
+    default: 3
+    description: The maximum depth of the tree.
+  max_features:
+    type: string
+    default: "log2"
+    description: The number of features to consider when looking for the best split.
+  min_samples_split:
+    type: integer
+    default: 2
+    description: The minimum number of samples required to split an internal node.
+  min_samples_leaf:
+    type: integer
+    default: 1
+    description: The minimum number of samples required to be at a leaf node.
+  loss:
+    type: string
+    default: "deviance"
+    description: The loss function to be optimized.
+  criterion:
+    type: string
+    default: "friedman_mse"
+    description: The function to measure the quality of a split.
+  subsample:
+    type: number
+    default: 1.0
+    description: The fraction of samples to be used for fitting the individual base learners.
+  output_model:
+    type: uri_file
+    description: Path where the trained model will be saved.
+  output_metrics:
+    type: uri_file
+    description: Path where the performance metrics will be saved.
+  register_model:
+    type: boolean
+    default: true
+    description: Whether to register the model with MLflow.
+
+outputs:
+  model_output:
+    type: uri_file
+    description: Path where the trained model will be saved.
+  metrics_output:
+    type: uri_file
+    description: Path where the performance metrics will be saved.
+
+code: ./src
+environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
+command: >
+  python train_gradient_boosting.py
+  --input_training_data ${{inputs.input_training_data}}
+  --input_test_data ${{inputs.input_test_data}}
+  --target_column ${{inputs.target_column}}
+  --n_estimators ${{inputs.n_estimators}}
+  --learning_rate ${{inputs.learning_rate}}
+  --max_depth ${{inputs.max_depth}}
+  --max_features ${{inputs.max_features}}
+  --min_samples_split ${{inputs.min_samples_split}}
+  --min_samples_leaf ${{inputs.min_samples_leaf}}
+  --loss ${{inputs.loss}}
+  --criterion ${{inputs.criterion}}
+  --subsample ${{inputs.subsample}}
+  --output_model ${{outputs.model_output}}
+  --output_metrics ${{outputs.metrics_output}}
+  --register_model ${{inputs.register_model}}
+

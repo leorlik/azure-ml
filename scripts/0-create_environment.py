@@ -3,7 +3,6 @@ from azure.ai.ml import MLClient
 from azure.ai.ml.entities import Data 
 from azure.ai.ml.constants import AssetTypes
 from azure.identity import ClientSecretCredential
-from azure.identity import DefaultAzureCredential
 from azure.mgmt.resource import ResourceManagementClient
 import os
 import json

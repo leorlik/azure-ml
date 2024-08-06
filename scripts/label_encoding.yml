@@ -1,0 +1,20 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+name: label_encoding
+display_name: encode labels from the project
+version: 1
+type: command
+inputs:
+  input_data: 
+    type: uri_file
+  columns_to_encode:
+    type: string
+outputs:
+  output_data:
+    type: uri_file
+code: ./src
+environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
+command: >-
+  python label_encoding.py 
+  --input_data ${{inputs.input_data}}
+  --columns_to_encode ${{inputs.columns_to_encode}}
+  --output_data ${{outputs.output_data}}
