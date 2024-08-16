@@ -8,6 +8,8 @@ inputs:
     type: uri_file
   columns_to_drop:
     type: string
+  output_data_path:
+    type: string
 outputs:
   output_data:
     type: uri_file
@@ -17,4 +19,4 @@ command: >-
   python label_encoding.py 
   --input_data ${{inputs.input_data}}
   --columns_to_drop ${{inputs.columns_to_drop}}
-  --output_data ${{outputs.output_data}}
+  --output_data_path ${{inputs.output_data_path}}

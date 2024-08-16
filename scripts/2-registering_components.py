@@ -20,8 +20,6 @@ def get_credentials():
 
     return subscription_id, client_id, client_secret, tenant_id
 
-loaded_component_prep = load_component("label_encoding.yml")
-
 subscription_id, client_id, client_secret, tenant_id = get_credentials()
 
 credential = ClientSecretCredential(client_id=client_id, client_secret=client_secret, tenant_id=tenant_id)
@@ -33,5 +31,5 @@ components = ["label_encoding.yml", "drop_columns.yml", "normalize_data.yml",
 
 for c in components:
     loaded_component_prep = load_component(c)
-    ml_client.components.create_or_update(loaded_component_prep)
+    ml_client.components.create_or_update(loaded_component_prep, version="20240810_6.1")
 
